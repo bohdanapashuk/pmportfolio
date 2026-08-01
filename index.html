@@ -239,20 +239,20 @@ nav.scrolled{background:rgba(241,236,250,.78);backdrop-filter:blur(16px);padding
 #contact{text-align:center}
 .contact-h{font-family:var(--ff-d);font-size:clamp(2.2rem,5.5vw,3.8rem);font-weight:700;letter-spacing:-.03em;margin:1rem 0;line-height:1.05}
 .contact-lead{color:var(--mid);max-width:46ch;margin:0 auto 2.2rem;font-size:1.02rem}
-/* CONTACT CARDS — a short horizontal track of 4 fixed cards. Wheel input
-   is captured while the panel is in view and drives the track's transform
-   directly (see script), rather than the page scrolling past it; the mask
-   fades cards in/out at the edges instead of a hard clip. Falls back to
-   plain native horizontal scroll (touch/trackpad swipe) for touch and
-   reduced-motion, since JS wheel-capture can't apply there anyway. */
-.contact-cards{max-width:600px;margin:0 auto}
+/* CONTACT CARDS — 4 orbs that start layered at the track's center and
+   unfurl into this row as the section scrolls into view (see script).
+   Falls back to plain native horizontal scroll — no transform, no
+   animation — whenever the row is too wide for its container to fit
+   (narrow viewports, or reduced motion), so a card can never end up
+   clipped and unreachable. */
+.contact-cards{max-width:680px;margin:0 auto}
 .contact-cards-mask{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 /* Each contact method is a small glowing orb, not a bordered rectangle —
    the same white-core-to-purple gradient and soft halo language as the
    reflection stars, so reaching out reads as one more star to click
    rather than a break into generic card-grid UI. A quiet static thread
    ties them together, like a constellation that's already settled. */
-.contact-cards-track{position:relative;display:flex;align-items:flex-start;gap:56px;width:max-content;padding:1.6rem 12px .5rem;transition:transform .13s ease-out;will-change:transform}
+.contact-cards-track{position:relative;display:flex;align-items:flex-start;justify-content:center;gap:72px;width:max-content;margin:0 auto;padding:1.6rem 12px .5rem;transition:transform .13s ease-out;will-change:transform}
 .contact-cards-track::before{content:'';position:absolute;left:0;right:0;top:calc(1.6rem + 32px);height:1px;background:linear-gradient(90deg,transparent,var(--purple-b) 10%,var(--purple-b) 90%,transparent);opacity:.25}
 .contact-card{position:relative;flex:0 0 auto;width:100px;display:flex;flex-direction:column;align-items:center;gap:.8rem;text-decoration:none;color:var(--mid);text-align:center}
 .cc-orb{position:relative;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 38%,#fff 0%,var(--purple-b) 55%,var(--purple) 100%);box-shadow:0 10px 26px -10px rgba(109,82,150,.55);transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .35s var(--ease)}
@@ -430,17 +430,6 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;align-items:
       </div>
 
       <div class="card reveal" data-cat="product"
-        data-tag="Product · Community Platform" data-title="Pobro" data-org="Goal-matching platform, 300+ users"
-        data-link='[]'
-        data-rails='[{"l":"Product","t":"A goal-matching platform that connected people with accountability partners and communities, serving over 300 users."},{"l":"What I did","t":"Acted as technical product lead, coordinating development priorities, improving the user experience, and translating community needs into product improvements."},{"l":"Outcome","t":"Supported a growing community of 300+ users, improving engagement through iterative product updates."}]'>
-        <div class="card-tag">Product · Community Platform</div>
-        <div class="card-title">Pobro</div>
-        <div class="card-org">Goal-matching platform, 300+ users</div>
-        <div class="card-one">A goal-matching platform connecting people with accountability partners, serving 300+ users.</div>
-        <span class="card-more">View details →</span>
-      </div>
-
-      <div class="card reveal" data-cat="product"
         data-tag="Product &amp; Strategy · International" data-title="Taido Platform Localization" data-org="Sony · Arc &amp; Beyond, Tokyo"
         data-link='[{"label":"View the deck","url":"https://docs.google.com/presentation/d/1SqSGnZea7zZaNqhwlna5zaK-xhjvp_z33LUYhSLuwd8/edit?usp=sharing"}]'
         data-rails='[{"l":"Problem","t":"Sony wanted to connect African animation talent with opportunities in Japan, but one platform had to work across different countries, cultures, and production studios."},{"l":"What I did","t":"I worked with users and stakeholders across three countries to understand what different audiences needed from the platform. I translated those insights into product requirements, localization priorities, and implementation plans while helping keep Sony Japan and international partners aligned."},{"l":"Outcome","t":"The platform launched across three countries and five studios, supporting a community of roughly 10,000 users."}]'>
@@ -594,10 +583,10 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;align-items:
       <div class="xp">
         <div class="xp-when">2025 – Present</div>
         <div>
-          <div class="xp-role">Marketing Intern, <em>Unstuck Engine</em></div>
+          <div class="xp-role">AI Automation &amp; Marketing Intern, <em>Unstuck Engine</em></div>
           <div class="xp-d">Built and hosted a Gen Z podcast and applied AI tools for B2B targeting.</div>
         </div>
-        <button type="button" class="xp-spark" data-refl-group="unstuck" aria-haspopup="dialog" aria-expanded="false" aria-label="Read reflections on Marketing Intern, Unstuck Engine"><span class="spark-glyph">✦</span></button>
+        <button type="button" class="xp-spark" data-refl-group="unstuck" aria-haspopup="dialog" aria-expanded="false" aria-label="Read reflections on AI Automation & Marketing Intern, Unstuck Engine"><span class="spark-glyph">✦</span></button>
       </div>
       <div class="xp">
         <div class="xp-when">2020 – 2024</div>
@@ -762,8 +751,8 @@ const REFL={
   'sony-learned':{icon:'💡',title:'What I Learned',context:'Product & Media Strategy · Sony · Arc & Beyond',text:'This experience was a cultural explosion for me. As a Ukrainian living in Japan, I worked with teammates from Japan, Nigeria, and Ghana, all with different perspectives and ways of working. It taught me that successful collaboration is not just about speaking the same language. It is about understanding different expectations, communication styles, and work cultures. They say that in Japan, being on time means arriving ten minutes early for a reason. :)'},
   'sony-differently':{icon:'↺',title:"What I'd Do Differently",context:'Product & Media Strategy · Sony · Arc & Beyond',text:'Looking back, I would have asked more questions instead of assuming my way of working was universal. Some misunderstandings came from different cultural expectations rather than poor communication. Learning that made me a much better collaborator.'},
   'sony-feedback':{icon:'💬',title:'Employer Feedback',context:'Product & Media Strategy · Sony · Arc & Beyond',quote:true,text:'Bohdana (Dana) worked with our team at Arc & Beyond on TAIDO, a program connecting animation talent in Africa with the Japanese animation industry. She conducted audience research and helped develop a product and marketing strategy proposal for the project, which she presented along with supporting materials. Throughout our collaboration, she communicated clearly across cultures, was proactive in her work, and consistently demonstrated reliability and professionalism.',attribution:'Miyuki Kitabatake, Sony Japan',link:'https://arc-beyond.org/en/team/'},
-  'unstuck-learned':{icon:'💡',title:'What I Learned',context:'Marketing Intern · Unstuck Engine',text:'Before this internship, I thought good work had to be difficult. If something took hours, I assumed I was doing it well. Learning automation completely changed that mindset. I realized the best work is not the one that takes the most effort but the one that creates the most value. This experience also sparked my never-ending curiosity about AI that has stayed with me ever since.'},
-  'unstuck-differently':{icon:'↺',title:"What I'd Do Differently",context:'Marketing Intern · Unstuck Engine',text:'At the time, I was automating lead generation and outreach, but I still believed creative work like video editing or design could not really benefit from AI. Ironically, I have recently automated my own video editing pipeline. I still value creativity just as much, but I have learned that AI is best used to remove repetitive work so I can focus on the parts that require human judgment.'},
+  'unstuck-learned':{icon:'💡',title:'What I Learned',context:'AI Automation & Marketing Intern · Unstuck Engine',text:'Before this internship, I thought good work had to be difficult. If something took hours, I assumed I was doing it well. Learning automation completely changed that mindset. I realized the best work is not the one that takes the most effort but the one that creates the most value. This experience also sparked my never-ending curiosity about AI that has stayed with me ever since.'},
+  'unstuck-differently':{icon:'↺',title:"What I'd Do Differently",context:'AI Automation & Marketing Intern · Unstuck Engine',text:'At the time, I was automating lead generation and outreach, but I still believed creative work like video editing or design could not really benefit from AI. Ironically, I have recently automated my own video editing pipeline. I still value creativity just as much, but I have learned that AI is best used to remove repetitive work so I can focus on the parts that require human judgment.'},
   'civic-learned':{icon:'💡',title:'What I Learned',context:'Civic leadership in Ukraine',text:'Almost everything I did for the Youth Center and FRI was unpaid, yet it remains some of the most meaningful work I have done. It taught me that I thrive when I genuinely believe in the mission behind what I am building. I also learned that opportunities rarely come from places themselves. They come from the people you meet there. The relationships I built during those years shaped me far more than any title ever could.'},
   'civic-differently':{icon:'↺',title:"What I'd Do Differently",context:'Civic leadership in Ukraine',text:'I would have said "yes" more often. Some opportunities felt intimidating, and I turned them down before giving myself the chance to grow. Looking back, I sometimes wonder where those paths might have led. Now, whenever something scares me in a good way, I usually take it as a sign that I should try it anyway.'},
   'skild-learning':{icon:'🌱',title:"What I'm Still Learning",context:'Marketing & Product Intern · Skild AI',text:'I came to Skild as a marketing intern. A few weeks in, I realized I wanted to understand what happened before a product was announced, not just how it was communicated. So I asked if I could join the product team. I was genuinely nervous about hearing “no,” but asking turned out to be the best decision I made this summer. It led to working on a customer-facing robotics POC, sitting in rooms with engineers and enterprise stakeholders I never imagined I’d learn from, and finding an informal mentor whose guidance has shaped the way I think about product. It’s a reminder I keep coming back to: the opportunities that shape you often begin with a question you’re afraid to ask.'}
@@ -1137,16 +1126,15 @@ if(reflCard){
   addEventListener('scroll',()=>constellationObserver.observe(tlSection),{passive:true,once:true});
 })();
 
-/* CONTACT CARDS — 4 fixed cards on a horizontal track. Wheel input is
-   captured globally (not scoped to hover) while the panel sits in the
-   middle band of the viewport, and drives the track's transform directly
-   as a plain px number computed from measured widths — never a
-   calc()-mixed-unit string, and never routed through a state/MotionValue
-   layer, so it can be written synchronously in the same tick as the wheel
-   event with no re-render lag. Once progress is pinned at 0 or 1 and the
-   visitor keeps scrolling the same direction, the handler returns without
-   calling preventDefault, so that event just falls through to the page's
-   normal scroll — the section never traps the visitor. */
+/* CONTACT CARDS — 4 orbs that rest layered/fanned at the track's center
+   and unfurl out to their row positions as the section scrolls up into
+   view. Driven purely by normal vertical scroll position (the same
+   rect.top-vs-viewport math as the hero blur above), never by a wheel
+   listener or preventDefault, so it can't trap or fight the page's
+   native scroll. Falls back to plain native horizontal scroll — no
+   transform, no animation — whenever the row doesn't fit its container
+   (narrow viewports) or reduced motion is on, so a card can never end
+   up clipped and unreachable. */
 (function(){
   const wrapEl=document.getElementById('contactCards');
   const maskEl=wrapEl&&wrapEl.querySelector('.contact-cards-mask');
@@ -1154,53 +1142,63 @@ if(reflCard){
   if(!wrapEl||!maskEl||!trackEl)return;
   const cards=Array.from(trackEl.querySelectorAll('.contact-card'));
 
-  if(reduce||coarse){
+  function overflows(){
+    return trackEl.scrollWidth>maskEl.getBoundingClientRect().width+1;
+  }
+
+  function goStatic(){
     wrapEl.classList.add('static');
+    cards.forEach(c=>{c.style.transform='';c.style.opacity='';});
+  }
+
+  if(reduce){
+    goStatic();
     return;
   }
 
-  let progress=0;
-  let maxOffset=0;
-  const SENSITIVITY=.0018;
+  let homes=[];
 
   function measure(){
-    const viewportWidth=maskEl.getBoundingClientRect().width;
-    const trackWidth=trackEl.scrollWidth;
-    maxOffset=Math.max(0,trackWidth-viewportWidth);
+    const trackRect=trackEl.getBoundingClientRect();
+    const centerX=trackRect.width/2;
+    const n=cards.length;
+    homes=cards.map((card,i)=>({
+      dx:centerX-(card.offsetLeft+card.offsetWidth/2),
+      rot:(i-(n-1)/2)*7
+    }));
   }
 
-  function updateSpotlight(x){
-    const viewportCenter=maskEl.getBoundingClientRect().width/2;
-    let nearest=null,nearestDist=Infinity;
-    cards.forEach(card=>{
-      const cardCenter=card.offsetLeft+card.offsetWidth/2+x;
-      const dist=Math.abs(cardCenter-viewportCenter);
-      if(dist<nearestDist){nearestDist=dist;nearest=card;}
-    });
-    cards.forEach(c=>c.classList.toggle('spot',c===nearest));
-  }
-
-  function applyTransform(){
-    const x=-progress*maxOffset;
-    trackEl.style.transform='translateX('+x+'px)';
-    updateSpotlight(x);
-  }
-
-  measure();
-  applyTransform();
-  addEventListener('resize',()=>{measure();applyTransform();},{passive:true});
-
-  addEventListener('wheel',(e)=>{
+  function apply(){
     const rect=wrapEl.getBoundingClientRect();
-    const inView=rect.top<innerHeight*.75&&rect.bottom>innerHeight*.25;
-    if(!inView)return;
-    if(maxOffset<=0)return;
-    const next=Math.min(1,Math.max(0,progress+e.deltaY*SENSITIVITY));
-    if(next===progress)return;
-    e.preventDefault();
-    progress=next;
-    applyTransform();
-  },{passive:false});
+    const startY=innerHeight*.78,endY=innerHeight*.4;
+    const p=Math.min(1,Math.max(0,(startY-rect.top)/(startY-endY)));
+    const ip=1-p;
+    cards.forEach((card,i)=>{
+      const h=homes[i];
+      card.style.transform='translate('+(h.dx*ip).toFixed(2)+'px,0) rotate('+(h.rot*ip).toFixed(2)+'deg) scale('+(1-.18*ip).toFixed(3)+')';
+      card.style.opacity=(.3+.7*p).toFixed(3);
+    });
+  }
+
+  function sync(){
+    if(overflows()){
+      if(!wrapEl.classList.contains('static'))goStatic();
+      return;
+    }
+    wrapEl.classList.remove('static');
+    measure();
+    apply();
+  }
+
+  sync();
+  addEventListener('resize',sync,{passive:true});
+  let ticking2=false;
+  addEventListener('scroll',()=>{
+    if(!ticking2){requestAnimationFrame(()=>{
+      if(!wrapEl.classList.contains('static'))apply();
+      ticking2=false;
+    });ticking2=true;}
+  },{passive:true});
 })();
 
 /* MODAL */
