@@ -592,6 +592,18 @@ section,.sheet,.finale{overflow-x:clip}
 .avail{width:186px;right:-84px;top:39%;padding:0 44px;gap:3px}
 .av1{font-size:.6rem}.av2{font-size:1.3rem}.av3{font-size:.44rem;max-width:12ch}
 @media(max-width:900px){.avail{width:150px;right:-58px;padding:0 36px}.av2{font-size:1.05rem}.av3{font-size:.4rem}}
+
+/* SIGNATURE: the hero name's tight lowercase, carried through the page */
+.sec-h{text-transform:lowercase;font-weight:800;letter-spacing:-.065em;line-height:.88;font-size:clamp(2.4rem,5.6vw,4.4rem)}
+.sec-h .dot{font-style:normal;color:var(--accent)}
+.contact-h{text-transform:lowercase;font-weight:800;letter-spacing:-.075em;line-height:.82}
+.logo{font-weight:800;letter-spacing:-.06em;font-size:1.3rem;text-transform:lowercase}
+.logo em{font-style:normal;color:var(--accent)}
+nav:not(.scrolled) .logo em{color:var(--butter)}
+footer .f-name{text-transform:lowercase;font-weight:800;letter-spacing:-.065em;font-size:1.6rem}
+footer .f-name i{font-style:normal;color:var(--butter)}
+.dc-k{text-transform:lowercase;font-weight:800;letter-spacing:-.06em;font-size:clamp(1.15rem,2.9vw,1.7rem)}
+.card-title{font-weight:800;letter-spacing:-.045em}
 </style>
 </head>
 <body>
@@ -601,7 +613,7 @@ section,.sheet,.finale{overflow-x:clip}
 <div class="cglow" id="cglow"></div>
 
 <nav id="nav">
-  <a href="#hero" class="logo">Dana <em>Pashuk</em></a>
+  <a href="#hero" class="logo">dana pashuk<em>.</em></a>
   <div class="nav-links">
     <a href="#work">Experiences</a>
     <a href="#about">About</a>
@@ -689,7 +701,7 @@ section,.sheet,.finale{overflow-x:clip}
 <section id="places" data-stagger>
   <div class="wrap" data-zoom="320">
     <span class="eyebrow reveal">Where I've lived</span>
-    <h2 class="sec-h reveal lead">Four cities, <span class="grad">four time zones</span></h2>
+    <h2 class="sec-h reveal lead">Four cities, <span class="grad">four time zones</span><i class="dot">.</i></h2>
     <div class="dial reveal" id="route">
       <svg class="dial-svg" viewBox="0 0 400 400" aria-hidden="true">
         <circle class="dial-o" cx="200" cy="200" r="190"/>
@@ -727,7 +739,7 @@ section,.sheet,.finale{overflow-x:clip}
 <section id="work" data-stagger>
   <div class="wrap">
     <span class="eyebrow reveal">Selected work</span>
-    <h2 class="sec-h reveal lead">Selected <span class="grad">experiences</span></h2>
+    <h2 class="sec-h reveal lead">Selected <span class="grad">experiences</span><i class="dot">.</i></h2>
     <div class="win reveal" data-zoom="220">
     <div class="win-bar">
       <span class="win-name" aria-hidden="true">experiences.exe</span>
@@ -898,7 +910,7 @@ section,.sheet,.finale{overflow-x:clip}
 <section id="experience" data-stagger>
   <div class="wrap" data-zoom="160">
     <span class="eyebrow reveal">Reflections</span>
-    <h2 class="sec-h reveal lead">Where I've <span class="grad">grown</span></h2>
+    <h2 class="sec-h reveal lead">Where I've <span class="grad">grown</span><i class="dot">.</i></h2>
     <p class="refl-lead reveal">Click on the <span class="refl-lead-spark">✦</span> star!</p>
     <div class="reveal" style="margin-top:1.5rem">
       <div class="xp">
@@ -984,7 +996,7 @@ section,.sheet,.finale{overflow-x:clip}
     </div>
   </section>
   <footer>
-    <div class="f-name">Dana Pashuk</div>
+    <div class="f-name">dana pashuk<i>.</i></div>
     <div class="f-copy">Product · San Francisco · 2026</div>
     <div class="f-hint" aria-hidden="true">psst: type "hola"</div>
   </footer>
