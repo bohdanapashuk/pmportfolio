@@ -132,13 +132,6 @@ nav.scrolled{background:rgba(241,236,250,.78);backdrop-filter:blur(16px);padding
 .card-more{font-family:var(--ff-m);font-size:.68rem;letter-spacing:.05em;color:var(--purple);margin-top:1.1rem;display:inline-flex;align-items:center;gap:.35rem;transition:gap .25s}
 .card:hover .card-more{gap:.65rem}
 
-/* COMP */
-.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.4rem;will-change:transform}
-.comp{padding:1.5rem;background:var(--surface);border:1px solid var(--line);border-radius:12px;transition:transform .3s var(--ease),border-color .3s,background .3s}
-.comp:hover{transform:translateY(-3px);border-color:var(--line2);background:var(--surface2)}
-.comp-n{font-family:var(--ff-m);font-size:.7rem;color:var(--purple);margin-bottom:.7rem}
-.comp-h{font-family:var(--ff-d);font-size:1.05rem;font-weight:600;margin-bottom:.35rem;line-height:1.2;letter-spacing:-.01em}
-.comp-d{font-size:.83rem;color:var(--mid);line-height:1.5}
 
 /* WAVE */
 .wave{display:block;width:100%;height:52px;color:var(--line);margin-top:1rem}
@@ -296,11 +289,10 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;align-items:
   .wrap,nav,nav.scrolled,footer{padding-left:1.5rem;padding-right:1.5rem}
   .about-grid{grid-template-columns:1fr;gap:2.2rem}
   .grid{grid-template-columns:1fr}
-  .comp-grid{grid-template-columns:1fr 1fr}
   .nav-links a:not(.nav-cta){display:none}
   .xp{grid-template-columns:1fr;gap:.3rem}
 }
-@media(max-width:520px){.comp-grid{grid-template-columns:1fr}.modal{padding:1.8rem}.stat-strip{gap:1.4rem}}
+@media(max-width:520px){.modal{padding:1.8rem}.stat-strip{gap:1.4rem}}
 @media(prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;filter:none;transition:none}
   .blob,.grad,.ticker-track,.portrait{animation:none}
@@ -544,21 +536,6 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;align-items:
   </div>
 </section>
 
-<section id="skills" data-stagger>
-  <div class="wrap">
-    <span class="eyebrow reveal">How I work</span>
-    <h2 class="sec-h reveal lead">What I bring to a <span class="grad">product team</span></h2>
-    <div class="comp-grid">
-      <div class="comp reveal"><div class="comp-n">01</div><div class="comp-h">Customer empathy</div><div class="comp-d">I start from the person and build what makes their life better, not just what moves a number.</div></div>
-      <div class="comp reveal"><div class="comp-n">02</div><div class="comp-h">AI curiosity</div><div class="comp-d">Endlessly curious about what new AI can do, and quick to bring it into real products.</div></div>
-      <div class="comp reveal"><div class="comp-n">03</div><div class="comp-h">Technical fluency</div><div class="comp-d">Python and algorithms. Enough depth to earn engineers' trust and know what I'm asking for.</div></div>
-      <div class="comp reveal"><div class="comp-n">04</div><div class="comp-h">Requirements &amp; scoping</div><div class="comp-d">Turning a fuzzy goal into a clear, testable definition of done.</div></div>
-      <div class="comp reveal"><div class="comp-n">05</div><div class="comp-h">Data-informed decisions</div><div class="comp-d">Regression and testing to make calls I can defend.</div></div>
-      <div class="comp reveal"><div class="comp-n">06</div><div class="comp-h">Community &amp; leadership</div><div class="comp-d">Built teams and communities from scratch, and led up to 15 people.</div></div>
-    </div>
-  </div>
-</section>
-
 <svg class="wave" viewBox="0 0 1440 52" preserveAspectRatio="none"><path d="M0,26 C240,48 480,4 720,26 C960,48 1200,4 1440,26"/><path class="w2" d="M0,33 C240,11 480,50 720,29 C960,7 1200,46 1440,24"/></svg>
 
 <section id="experience" data-stagger>
@@ -700,26 +677,6 @@ if(!coarse&&!reduce){
     }
   });
   (function glow(){gx+=(mx-gx)*.14;gy+=(my-gy)*.14;cglow.style.transform='translate('+gx+'px,'+gy+'px) translate(-50%,-50%)';requestAnimationFrame(glow)})();
-}
-
-/* SKILLS GRID DRIFT — the whole grid leans a few px toward wherever the
-   cursor is, eased in slowly (a loose lerp, looser than the cursor glow
-   above) so it settles like something caught in a light breeze rather
-   than tracking the mouse directly. */
-const compGrid=document.querySelector('.comp-grid');
-if(compGrid&&!coarse&&!reduce){
-  let dx=0,dy=0;
-  (function driftGrid(){
-    const r=compGrid.getBoundingClientRect();
-    const cx=r.left+r.width/2,cy=r.top+r.height/2;
-    const nx=Math.max(-1,Math.min(1,(mx-cx)/(innerWidth/2)));
-    const ny=Math.max(-1,Math.min(1,(my-cy)/innerHeight));
-    const tx=nx*9,ty=ny*6;
-    dx+=(tx-dx)*.055;
-    dy+=(ty-dy)*.055;
-    compGrid.style.transform='translate('+dx.toFixed(2)+'px,'+dy.toFixed(2)+'px)';
-    requestAnimationFrame(driftGrid);
-  })();
 }
 
 /* SCROLL: nav, hero blur */
