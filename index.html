@@ -6,7 +6,7 @@
 <title>Dana Pashuk · Product</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Silkscreen&family=Reenie+Beanie&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&family=IBM+Plex+Mono:wght@400;500&family=Silkscreen&family=Reenie+Beanie&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -523,6 +523,38 @@ footer .f-name{color:var(--cream)}
 .badge-fields dd{font-size:1.55rem}
 [data-zoom]{transform-origin:50% 50%;will-change:transform}
 .burst{transform:none;rotate:12deg}
+
+/* TYPE: Inter Tight throughout. Name in tight lowercase, headings in caps */
+:root{--ff-d:'Inter Tight','Helvetica Neue',Arial,sans-serif;--ff-b:'Inter Tight','Helvetica Neue',Arial,sans-serif}
+body{font-size:16px;letter-spacing:-.005em}
+.hero-name{text-transform:lowercase;font-weight:800;letter-spacing:-.075em;line-height:.8}
+.hero-name span{font-size:clamp(4rem,11.6vw,10.6rem);padding-right:.06em}
+.sec-h{text-transform:uppercase;font-weight:700;font-stretch:normal;letter-spacing:-.025em;line-height:.95;font-size:clamp(1.9rem,4.2vw,3.2rem)}
+.contact-h{font-weight:700;letter-spacing:-.04em}
+.badge-title{font-weight:800;letter-spacing:-.045em}
+.card-title{font-weight:700;letter-spacing:-.025em}
+.dial .stop-name,.dc-k{font-weight:700}
+.tk{font-weight:700;letter-spacing:-.02em}
+.hh-word{font-weight:700}
+.about-body p{font-size:1.05rem}
+
+/* EXPERIENCES as a retro OS window */
+.win{margin-top:2.4rem;border:1.5px solid var(--ink);border-radius:10px;background:var(--sheet);box-shadow:8px 8px 0 var(--ink);overflow:hidden}
+.win-bar{display:flex;align-items:stretch;gap:0;background:linear-gradient(#E9E8E3,#D4D3CC);border-bottom:1.5px solid var(--ink);min-height:40px}
+.win-name{display:flex;align-items:center;padding:0 1rem;font-family:var(--ff-m);font-size:.66rem;letter-spacing:.06em;color:var(--mid);border-right:1px solid rgba(13,14,18,.25);white-space:nowrap}
+.win .tabs{margin:0;flex:1;display:flex;gap:0;flex-wrap:nowrap;overflow-x:auto}
+.win .tab{border:0;border-right:1px solid rgba(13,14,18,.25);border-radius:0;background:transparent;padding:0 1.3rem;text-transform:none;letter-spacing:.02em;font-size:.72rem;color:var(--mid);box-shadow:none;white-space:nowrap}
+.win .tab:hover{background:rgba(255,255,255,.5);color:var(--ink)}
+.win .tab.active{background:var(--ink);color:var(--sheet)}
+.win-x{display:flex;align-items:center;justify-content:center;width:44px;flex:none;border-left:1px solid rgba(13,14,18,.25);font-size:.95rem;font-weight:700;color:var(--ink)}
+.win-body{padding:1.4rem}
+.win-body .more-btn{background:var(--sheet)}
+@media(max-width:760px){.win-name{display:none}.win-body{padding:1rem}.win{box-shadow:5px 5px 0 var(--ink)}}
+html,body{overflow-x:clip}
+section,.sheet,.finale{overflow-x:clip}
+
+/* BLUE 2: deep ultramarine */
+:root{--cobalt:#2233A8;--cobalt-d:#1A2786;--accent:#2233A8;--accent-2:#3446C4;--accent-d:#1A2786;--accent-soft:rgba(34,51,168,.09);--glow-core:#2233A8;--glow-mid:rgba(34,51,168,.5)}
 </style>
 </head>
 <body>
@@ -552,8 +584,7 @@ footer .f-name{color:var(--cream)}
       <h1 class="hero-name reveal lead"><span>Dana</span><span>Pashuk.</span></h1>
       <p class="hero-hello reveal" id="heroHello"><span class="hh-word" id="hhWord" lang="uk">Привіт</span><span class="hh-from" id="hhFrom">from Ukraine</span></p>
       <div class="hero-ctas reveal">
-        <a href="#work" class="btn btn-fill">See the work</a>
-        <a href="https://drive.google.com/file/d/1R25F7pk80AEPDoEjpopzYMF-Q-zBiIIS/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-ghost">Resume</a>
+        <a href="https://drive.google.com/file/d/1R25F7pk80AEPDoEjpopzYMF-Q-zBiIIS/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-fill">Resume ↗</a>
       </div>
       <div class="stat-strip reveal">
         <div class="stat"><b>10K</b><span>platform users</span></div>
@@ -661,13 +692,19 @@ footer .f-name{color:var(--cream)}
   <div class="wrap">
     <span class="eyebrow reveal">Selected work</span>
     <h2 class="sec-h reveal lead">Selected <span class="grad">experiences</span></h2>
-    <div class="tabs reveal">
-      <button class="tab active" data-f="all">All</button>
-      <button class="tab" data-f="product">Product</button>
-      <button class="tab" data-f="technical">Technical</button>
-      <button class="tab" data-f="projects">Projects</button>
+    <div class="win reveal" data-zoom="220">
+    <div class="win-bar">
+      <span class="win-name" aria-hidden="true">experiences.exe</span>
+      <div class="tabs">
+      <button class="tab active" data-f="all">all</button>
+      <button class="tab" data-f="product">product</button>
+      <button class="tab" data-f="technical">technical</button>
+      <button class="tab" data-f="projects">projects</button>
+      </div>
+      <span class="win-x" aria-hidden="true">✕</span>
     </div>
-    <div class="grid" id="grid" data-zoom="220">
+    <div class="win-body">
+    <div class="grid" id="grid">
 
       <div class="card reveal" data-cat="product"
         data-tag="Product Strategy · Civic Tech" data-title="Redlining Education Game" data-org="San Francisco Dept of Public Health"
@@ -815,6 +852,8 @@ footer .f-name{color:var(--cream)}
 
     </div>
     <div class="more-wrap" id="moreWrap" hidden><button type="button" class="btn btn-ghost more-btn" id="moreBtn" aria-controls="grid">See all experiences</button></div>
+    </div>
+    </div>
   </div>
 </section>
 
@@ -1551,7 +1590,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
       let t=((r.top+r.height/2)-vh/2)/vh;
       t=Math.max(-1,Math.min(1,t));
       const D=(+el.dataset.zoom||200)*(small?.5:1);
-      const z=-t*D, rx=t*7;
+      const z=t>0?-t*D:-t*D*.45, rx=t*7;
       el.style.transform='perspective(1100px) translateZ('+z.toFixed(1)+'px) rotateX('+rx.toFixed(2)+'deg)';
     });
   }
