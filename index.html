@@ -1627,8 +1627,8 @@ if(reflCard){
     lastX=e.clientX;
   },{passive:true});
   (function step(){
-    v+=push*.045;push*=.93;
-    v+=-a*.0014;v*=.983;
+    v+=push*.03;push*=.955;
+    v+=-a*.0012;v*=.985;
     a+=v;a=Math.max(-8,Math.min(8,a));
     if(Math.abs(a)<.005&&Math.abs(v)<.001&&Math.abs(push)<.001){a=0;v=0;}
     rig.style.rotate=a===0?'':a.toFixed(3)+'deg';
