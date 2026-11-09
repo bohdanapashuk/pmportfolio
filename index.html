@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dana Pashuk · Product</title>
+<meta name="description" content="Dana Pashuk, product manager based in San Francisco. Product work across robotics, civic tech and consumer, built across four countries.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.danapashuk.com/">
+<meta property="og:title" content="Dana Pashuk · Product Manager">
+<meta property="og:description" content="Product work across robotics, civic tech and consumer. Built in Ukraine, San Francisco, Tokyo and Buenos Aires.">
+<meta property="og:image" content="https://www.danapashuk.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="dana pashuk. Product Manager, San Francisco, with an ID badge photo on a cobalt poster">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.danapashuk.com/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&family=IBM+Plex+Mono:wght@400;500&family=Silkscreen&family=Reenie+Beanie&display=swap" rel="stylesheet">
@@ -555,6 +566,11 @@ section,.sheet,.finale{overflow-x:clip}
 
 /* BLUE 2: deep ultramarine */
 :root{--cobalt:#2233A8;--cobalt-d:#1A2786;--accent:#2233A8;--accent-2:#3446C4;--accent-d:#1A2786;--accent-soft:rgba(34,51,168,.09);--glow-core:#2233A8;--glow-mid:rgba(34,51,168,.5)}
+
+/* EASTER EGG */
+.pixel-mode body,.pixel-mode body *:not(svg):not(path):not(circle){font-family:var(--ff-px)!important;letter-spacing:-.02em!important}
+.egg-toast{position:fixed;left:50%;bottom:calc(1.4rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:200;background:var(--butter);color:var(--ink);font-family:var(--ff-px);font-size:.8rem;padding:.7rem 1.1rem;border:1.5px solid var(--ink);box-shadow:4px 4px 0 var(--ink);white-space:nowrap}
+.f-hint{font-family:var(--ff-m);font-size:.62rem;letter-spacing:.08em;color:rgba(244,239,217,.55)}
 </style>
 </head>
 <body>
@@ -948,6 +964,7 @@ section,.sheet,.finale{overflow-x:clip}
   <footer>
     <div class="f-name">Dana Pashuk</div>
     <div class="f-copy">Product · San Francisco · 2026</div>
+    <div class="f-hint" aria-hidden="true">psst: type "hola"</div>
   </footer>
   </div><!-- /contact-over -->
 </div><!-- /finale -->
@@ -1534,33 +1551,59 @@ if(reflCard){
   if(!reduce)setInterval(()=>{if(!hold)go((cur+1)%stops.length);},2600);
 })();
 
-/* BADGE: idles with a gentle sway, swings harder when the cursor brushes past, tilts in 3D under the cursor */
+/* BADGE: strap, clip and card move as one pendulum. The card also turns a little
+   on the clip (pivoting at its top edge, so it never detaches), and tilts in 3D
+   around that same top edge when hovered. */
 (function(){
   const rig=document.getElementById('rig');if(!rig||reduce)return;
   const sleeve=rig.querySelector('.sleeve');
-  let a=0,v=0,lastX=null,lastY=scrollY,over=false,tx=0,ty=0,cx=0,cy=0;
+  sleeve.style.transformOrigin='50% 0';
+  let a=0,v=0,c=0,cv=0,lastX=null,lastY=scrollY,over=false,tx=0,ty=0,hx=0,hy=0;
   addEventListener('mousemove',e=>{
     const r=sleeve.getBoundingClientRect();
     const mx=r.left+r.width/2,my=r.top+r.height/2;
     const d=Math.hypot(e.clientX-mx,e.clientY-my);
     const near=Math.max(0,Math.min(1,1-(d-r.width*.5)/320));
-    if(lastX!==null)v+=(e.clientX-lastX)*(.006+.05*near);
+    if(lastX!==null)v+=(e.clientX-lastX)*(.005+.04*near);
     lastX=e.clientX;
     over=e.clientX>r.left&&e.clientX<r.right&&e.clientY>r.top&&e.clientY<r.bottom;
     if(over){tx=((e.clientX-r.left)/r.width-.5)*2;ty=((e.clientY-r.top)/r.height-.5)*2;}
   },{passive:true});
-  addEventListener('scroll',()=>{v+=(scrollY-lastY)*.012;lastY=scrollY;},{passive:true});
+  addEventListener('scroll',()=>{v+=(scrollY-lastY)*.01;lastY=scrollY;},{passive:true});
   const t0=performance.now();
   (function step(now){
-    const idle=Math.sin((now-t0)/1400)*1.4;
-    v+=-(a-idle)*.035;v*=.94;a+=v;a=Math.max(-18,Math.min(18,a));
+    const idle=Math.sin((now-t0)/1500)*1.2;
+    v+=-(a-idle)*.03;v*=.95;a+=v;a=Math.max(-16,Math.min(16,a));
+    cv+=(-v*1.6-c)*.08;cv*=.85;c+=cv;c=Math.max(-6,Math.min(6,c));
     rig.style.transform='rotate('+a.toFixed(2)+'deg)';
-    const gx=over?tx:0,gy=over?ty:0;
-    cx+=(gx-cx)*.12;cy+=(gy-cy)*.12;
-    sleeve.style.transform='perspective(800px) rotateY('+(cx*12).toFixed(2)+'deg) rotateX('+(-cy*9).toFixed(2)+'deg)';
+    hx+=((over?tx:0)-hx)*.1;hy+=((over?ty:0)-hy)*.1;
+    sleeve.style.transform='perspective(900px) rotate('+c.toFixed(2)+'deg) rotateY('+(hx*10).toFixed(2)+'deg) rotateX('+(hy*6).toFixed(2)+'deg)';
     requestAnimationFrame(step);
   })(t0);
   setTimeout(()=>{v+=2;},900);
+})();
+
+/* EASTER EGG: type hola / hello / привіт / privit anywhere and the page flips to pixel type */
+(function(){
+  const words={'hola':'¡hola!','hello':'hello!','привіт':'привіт!','privit':'привіт!','pryvit':'привіт!'};
+  const toast=document.createElement('div');toast.className='egg-toast';toast.setAttribute('role','status');toast.hidden=true;document.body.appendChild(toast);
+  let buf='',timer=0;
+  addEventListener('keydown',e=>{
+    if(e.metaKey||e.ctrlKey||e.altKey||e.key.length!==1)return;
+    const t=e.target;if(t&&(t.isContentEditable||/INPUT|TEXTAREA|SELECT/.test(t.tagName)))return;
+    buf=(buf+e.key.toLowerCase()).slice(-8);
+    const hit=Object.keys(words).find(w=>buf.endsWith(w));
+    if(!hit)return;
+    buf='';
+    document.documentElement.classList.add('pixel-mode');
+    toast.textContent=words[hit]+' pixel mode on';toast.hidden=false;
+    document.querySelectorAll('.px-wrap').forEach(w=>w.dispatchEvent(new Event('mouseenter')));
+    clearTimeout(timer);
+    timer=setTimeout(()=>{
+      document.documentElement.classList.remove('pixel-mode');toast.hidden=true;
+      document.querySelectorAll('.px-wrap').forEach(w=>w.dispatchEvent(new Event('mouseleave')));
+    },4500);
+  });
 })();
 
 /* MODAL */
