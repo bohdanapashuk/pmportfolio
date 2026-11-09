@@ -634,11 +634,9 @@ section,.sheet,.finale{overflow-x:clip}
       </div>
       <div class="about-body">
         <p class="reveal">I'm a Business and Computer Science student at Minerva University, and I've lived and studied across four countries. That taught me great products aren't one size fits all. They're shaped by the people who use them.</p>
-        <p class="reveal">I pair that perspective with technical and analytical skills to solve real problems: a civic education game with the San Francisco Department of Public Health, robotics product concepts at Skild AI, and Sony's platform adapted for users across countries.</p>
         <p class="reveal">I'm endlessly curious about how AI can serve people, and I care as much about the teams and communities behind a product as the product itself. I've built both from scratch.</p>
         <div class="facts reveal">
           <div class="fact"><b>Education</b><span>Minerva University, Business &amp; CS, Class of 2028</span></div>
-          <div class="fact"><b>Lived</b><span>Ukraine, San Francisco, Tokyo, Buenos Aires</span></div>
           <div class="fact"><b>Based</b><span>San Francisco, CA</span></div>
           <div class="fact"><b>Languages</b><span>English, Ukrainian, Russian, Polish</span></div>
         </div>
@@ -1536,18 +1534,33 @@ if(reflCard){
   if(!reduce)setInterval(()=>{if(!hold)go((cur+1)%stops.length);},2600);
 })();
 
-/* BADGE: swings a little on its lanyard */
+/* BADGE: idles with a gentle sway, swings harder when the cursor brushes past, tilts in 3D under the cursor */
 (function(){
   const rig=document.getElementById('rig');if(!rig||reduce)return;
-  let a=0,v=0,lastX=null,lastY=scrollY;
-  addEventListener('mousemove',e=>{if(lastX!==null)v+=(e.clientX-lastX)*.012;lastX=e.clientX;},{passive:true});
-  addEventListener('scroll',()=>{v+=(scrollY-lastY)*.01;lastY=scrollY;},{passive:true});
-  (function step(){
-    v+=-a*.035;v*=.94;a+=v;a=Math.max(-14,Math.min(14,a));
+  const sleeve=rig.querySelector('.sleeve');
+  let a=0,v=0,lastX=null,lastY=scrollY,over=false,tx=0,ty=0,cx=0,cy=0;
+  addEventListener('mousemove',e=>{
+    const r=sleeve.getBoundingClientRect();
+    const mx=r.left+r.width/2,my=r.top+r.height/2;
+    const d=Math.hypot(e.clientX-mx,e.clientY-my);
+    const near=Math.max(0,Math.min(1,1-(d-r.width*.5)/320));
+    if(lastX!==null)v+=(e.clientX-lastX)*(.006+.05*near);
+    lastX=e.clientX;
+    over=e.clientX>r.left&&e.clientX<r.right&&e.clientY>r.top&&e.clientY<r.bottom;
+    if(over){tx=((e.clientX-r.left)/r.width-.5)*2;ty=((e.clientY-r.top)/r.height-.5)*2;}
+  },{passive:true});
+  addEventListener('scroll',()=>{v+=(scrollY-lastY)*.012;lastY=scrollY;},{passive:true});
+  const t0=performance.now();
+  (function step(now){
+    const idle=Math.sin((now-t0)/1400)*1.4;
+    v+=-(a-idle)*.035;v*=.94;a+=v;a=Math.max(-18,Math.min(18,a));
     rig.style.transform='rotate('+a.toFixed(2)+'deg)';
+    const gx=over?tx:0,gy=over?ty:0;
+    cx+=(gx-cx)*.12;cy+=(gy-cy)*.12;
+    sleeve.style.transform='perspective(800px) rotateY('+(cx*12).toFixed(2)+'deg) rotateX('+(-cy*9).toFixed(2)+'deg)';
     requestAnimationFrame(step);
-  })();
-  setTimeout(()=>{v+=1.6;},900);
+  })(t0);
+  setTimeout(()=>{v+=2;},900);
 })();
 
 /* MODAL */
