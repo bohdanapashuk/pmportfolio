@@ -610,6 +610,11 @@ footer .f-name i{font-style:normal;color:var(--butter)}
 .av2{font-size:1.45rem;letter-spacing:-.06em;line-height:.84;text-transform:lowercase}
 .av3{font-family:var(--ff-px);font-size:.62rem;letter-spacing:.08em;max-width:none}
 @media(max-width:900px){.av2{font-size:1.15rem}.av1,.av3{font-size:.54rem}}
+
+/* idle swing as a CSS animation, so it runs in any viewer; JS pushes stack on top */
+@keyframes lanyardSway{0%{rotate:-6deg}50%{rotate:6deg}100%{rotate:-6deg}}
+.rig{animation:lanyardSway 4.4s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.rig{animation:none}}
 </style>
 </head>
 <body>
@@ -1607,10 +1612,10 @@ if(reflCard){
   addEventListener('scroll',()=>{v+=(scrollY-lastY)*.0025;lastY=scrollY;},{passive:true});
   const t0=performance.now();
   (function step(now){
-    const idle=Math.sin((now-t0)/620)*6.5;
+    const idle=0;
     v+=-(a-idle)*.02;v*=.95;v=Math.max(-.45,Math.min(.45,v));
     a+=v;a=Math.max(-11,Math.min(11,a));
-    rig.style.transform='rotate('+a.toFixed(3)+'deg)';
+    rig.style.transform=Math.abs(a)<.01?'':'rotate('+a.toFixed(3)+'deg)';
     requestAnimationFrame(step);
   })(t0);
 })();
