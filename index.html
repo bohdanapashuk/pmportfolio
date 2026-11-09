@@ -1607,9 +1607,9 @@ if(reflCard){
   addEventListener('scroll',()=>{v+=(scrollY-lastY)*.0025;lastY=scrollY;},{passive:true});
   const t0=performance.now();
   (function step(now){
-    const idle=Math.sin((now-t0)/720)*3.6;
-    v+=-(a-idle)*.012;v*=.965;v=Math.max(-.35,Math.min(.35,v));
-    a+=v;a=Math.max(-9,Math.min(9,a));
+    const idle=Math.sin((now-t0)/620)*6.5;
+    v+=-(a-idle)*.02;v*=.95;v=Math.max(-.45,Math.min(.45,v));
+    a+=v;a=Math.max(-11,Math.min(11,a));
     rig.style.transform='rotate('+a.toFixed(3)+'deg)';
     requestAnimationFrame(step);
   })(t0);
