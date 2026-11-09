@@ -619,6 +619,16 @@ footer .f-name i{font-style:normal;color:var(--butter)}
 /* the swing uses the separate rotate property, so the fade-in transition never smooths it away */
 .rig.reveal,.win.reveal{transition:opacity .8s var(--ease),filter .8s var(--ease)}
 .avail>span{top:7px}
+
+/* DEPTH on the blue: fine grain + soft vignette */
+.hero-paper,.contact-over::before{opacity:1;background-image:none}
+.hero-paper::before{content:'';position:absolute;inset:0;background-image:var(--crumple),var(--grain);background-size:cover,300px 300px;mix-blend-mode:multiply;opacity:.32}
+.contact-over::before{background-image:var(--crumple),var(--grain);opacity:.32}
+.hero-paper::after,.contact-over::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(120% 90% at 40% 45%,transparent 45%,rgba(6,10,48,.42) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size:cover,220px 220px;mix-blend-mode:soft-light;opacity:.9}
+.contact-over>*{position:relative;z-index:1}
+.contact-over .burst{position:absolute}
 </style>
 </head>
 <body>
