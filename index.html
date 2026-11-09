@@ -736,22 +736,22 @@ footer .f-name i{font-style:normal;color:var(--butter)}
       </svg>
       <div class="dial-core" aria-hidden="true"><span class="dc-k" id="dcK"></span><span class="dc-v" id="dcV"></span></div>
       <ol class="stops">
-        <li data-pos="n" class="stop" data-tz="Europe/Kyiv">
+        <li data-pos="n" data-short="ukraine" class="stop" data-tz="Europe/Kyiv">
           <span class="stop-name">Ukraine</span>
           <span class="stop-time" data-clock></span>
           <span class="stop-note">Where I grew up and founded Beat Sexism Ukraine.</span>
         </li>
-        <li data-pos="w" class="stop" data-tz="America/Los_Angeles">
+        <li data-pos="w" data-short="sf" class="stop" data-tz="America/Los_Angeles">
           <span class="stop-name">San Francisco</span>
           <span class="stop-time" data-clock></span>
           <span class="stop-note">Robotics product work at Skild AI and a civic game with SF Public Health.</span>
         </li>
-        <li data-pos="e" class="stop" data-tz="Asia/Tokyo">
+        <li data-pos="e" data-short="tokyo" class="stop" data-tz="Asia/Tokyo">
           <span class="stop-name">Tokyo</span>
           <span class="stop-time" data-clock></span>
           <span class="stop-note">Adapted Sony's Taido platform for users in three countries.</span>
         </li>
-        <li data-pos="s" class="stop now" data-tz="America/Argentina/Buenos_Aires">
+        <li data-pos="s" data-short="buenos aires" class="stop now" data-tz="America/Argentina/Buenos_Aires">
           <span class="stop-name">Buenos Aires <span class="stop-badge">Now</span></span>
           <span class="stop-time" data-clock></span>
           <span class="stop-note">Where I'm based this year.</span>
@@ -1602,7 +1602,7 @@ if(reflCard){
     deg+=d;cur=i;
     arm.style.transform='rotate('+deg+'deg)';
     stops.forEach((s,j)=>s.classList.toggle('lit',j===i));
-    K.textContent=stops[i].querySelector('.stop-name').firstChild.textContent.trim();
+    K.textContent=stops[i].dataset.short;
     V.textContent=stops[i].querySelector('.stop-note').textContent;
   }
   go(0);
