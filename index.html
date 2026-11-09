@@ -1600,28 +1600,31 @@ if(reflCard){
   if(!reduce)setInterval(()=>{if(!hold)go((cur+1)%stops.length);},2600);
 })();
 
-/* BADGE: strap, clip and card hang as one slow pendulum. A soft idle sway,
-   and a gentle push when the cursor passes nearby or the page scrolls. */
+/* BADGE: hangs still. A cursor pass hands it a soft push that eases in, it
+   swings slowly on the strap and settles. As it swings, the card turns a little
+   in depth around its clip, like a real badge on a lanyard. */
 (function(){
   const rig=document.getElementById('rig');if(!rig||reduce)return;
   const sleeve=rig.querySelector('.sleeve');
-  let a=0,v=0,lastX=null,lastY=scrollY;
+  sleeve.style.transformOrigin='50% 0';
+  let a=0,v=0,push=0,lastX=null;
   addEventListener('mousemove',e=>{
     const r=sleeve.getBoundingClientRect();
     const d=Math.hypot(e.clientX-(r.left+r.width/2),e.clientY-(r.top+r.height/2));
     const near=Math.max(0,Math.min(1,1-(d-r.width*.5)/300));
-    if(lastX!==null)v+=(e.clientX-lastX)*.007*near;
+    if(lastX!==null)push+=(e.clientX-lastX)*.003*near;
+    push=Math.max(-1.2,Math.min(1.2,push));
     lastX=e.clientX;
   },{passive:true});
-  addEventListener('scroll',()=>{lastY=scrollY;},{passive:true});
-  const t0=performance.now();
-  (function step(now){
-    const idle=0;
-    v+=-(a-idle)*.018;v*=.955;v=Math.max(-.6,Math.min(.6,v));
+  (function step(){
+    v+=push*.06;push*=.9;
+    v+=-a*.0024;v*=.977;
     a+=v;a=Math.max(-8,Math.min(8,a));
-    rig.style.rotate=Math.abs(a)<.01?'':a.toFixed(3)+'deg';
+    if(Math.abs(a)<.005&&Math.abs(v)<.001&&Math.abs(push)<.001){a=0;v=0;}
+    rig.style.rotate=a===0?'':a.toFixed(3)+'deg';
+    sleeve.style.transform=a===0?'':'perspective(900px) rotateY('+(a*2).toFixed(2)+'deg) rotateX('+(-Math.abs(a)*.5).toFixed(2)+'deg)';
     requestAnimationFrame(step);
-  })(t0);
+  })();
 })();
 
 /* EASTER EGG: type hola / hello / привіт / privit anywhere and the page flips to pixel type */
