@@ -615,6 +615,10 @@ footer .f-name i{font-style:normal;color:var(--butter)}
 @keyframes lanyardSway{0%{rotate:-6deg}50%{rotate:6deg}100%{rotate:-6deg}}
 .rig{animation:none}
 @media(prefers-reduced-motion:reduce){.rig{animation:none}}
+
+/* the swing uses the separate rotate property, so the fade-in transition never smooths it away */
+.rig.reveal,.win.reveal{transition:opacity .8s var(--ease),filter .8s var(--ease)}
+.avail>span{top:7px}
 </style>
 </head>
 <body>
@@ -1606,7 +1610,7 @@ if(reflCard){
     const r=sleeve.getBoundingClientRect();
     const d=Math.hypot(e.clientX-(r.left+r.width/2),e.clientY-(r.top+r.height/2));
     const near=Math.max(0,Math.min(1,1-(d-r.width*.5)/300));
-    if(lastX!==null)v+=(e.clientX-lastX)*.011*near;
+    if(lastX!==null)v+=(e.clientX-lastX)*.007*near;
     lastX=e.clientX;
   },{passive:true});
   addEventListener('scroll',()=>{lastY=scrollY;},{passive:true});
@@ -1615,7 +1619,7 @@ if(reflCard){
     const idle=0;
     v+=-(a-idle)*.018;v*=.955;v=Math.max(-.6,Math.min(.6,v));
     a+=v;a=Math.max(-8,Math.min(8,a));
-    rig.style.transform=Math.abs(a)<.01?'':'rotate('+a.toFixed(3)+'deg)';
+    rig.style.rotate=Math.abs(a)<.01?'':a.toFixed(3)+'deg';
     requestAnimationFrame(step);
   })(t0);
 })();
