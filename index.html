@@ -605,9 +605,9 @@ section,.sheet,.finale{overflow-x:clip}
             <dl class="badge-fields">
               <div><dt>Name</dt><dd>Dana Pashuk</dd></div>
               <div><dt>Role</dt><dd>Product Manager</dd></div>
-              <div><dt>Based</dt><dd>Buenos Aires</dd></div>
+              <div><dt>Based</dt><dd>San Francisco</dd></div>
             </dl>
-            <div class="badge-foot"><span>The holder of this card builds products that begin with people.</span><b id="baTime">UTC−3</b></div>
+            <div class="badge-foot"><span>The holder of this card builds products that begin with people.</span><b id="baTime">SF</b></div>
           </div>
         </div>
       </div>
@@ -1501,7 +1501,7 @@ if(reflCard){
 /* HERO: Buenos Aires time on the Currently card */
 (function(){
   const el=document.getElementById('baTime');if(!el)return;
-  function t(){try{el.textContent=new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/Argentina/Buenos_Aires'}).format(new Date())+' BA';}catch(e){}}
+  function t(){try{el.textContent=new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/Los_Angeles'}).format(new Date())+' SF';}catch(e){}}
   t();setInterval(t,15000);
 })();
 
@@ -1609,7 +1609,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
     function draw(){
       const W=wrap.clientWidth,H=wrap.clientHeight;if(!W||!H||!img.complete)return;
       if(cv.width!==W||cv.height!==H){cv.width=W;cv.height=H;}
-      const block=1+level*22;
+      const block=1+level*7;
       sm.width=Math.max(2,Math.round(W/block));sm.height=Math.max(2,Math.round(H/block));
       sx.drawImage(img,0,0,sm.width,sm.height);
       ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,W,H);ctx.drawImage(sm,0,0,W,H);
